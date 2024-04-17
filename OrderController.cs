@@ -9,16 +9,13 @@ namespace BlazingPizza
 {
     [Route("orders")]
     [ApiController]
-
     public class OrdersController : Controller
     {
         private readonly PizzaStoreContext _db;
-
         public OrdersController(PizzaStoreContext db)
         {
             _db = db;
         }
-
         [HttpGet]
         public async Task<ActionResult<List<OrderWithStatus>>> GetOrders()
         {
@@ -30,15 +27,10 @@ namespace BlazingPizza
 
             return orders.Select(o => OrderWithStatus.FromOrder(o)).ToList();
         }
-
         [HttpPost]
         public async Task<ActionResult<int>> PlaceOrder(Order order)
         {
             order.CreatedTime = DateTime.Now;
-
-            // Enforce existence of Pizza.SpecialId and Topping.ToppingId
-            // in the database - prevent the submitter from making up
-            // new specials and toppings
             foreach (var pizza in order.Pizzas)
             {
                 pizza.SpecialId = pizza.Special.Id;
@@ -50,7 +42,6 @@ namespace BlazingPizza
 
             return order.OrderId;
         }
-
         [HttpGet("{orderId}")]
         public async Task<ActionResult<OrderWithStatus>> GetOrderWithStatus(int orderId)
         {

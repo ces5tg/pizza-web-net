@@ -24,7 +24,6 @@ namespace BlazingPizza
         public void CancelConfigurePizzaDialog()
         {
             ConfiguringPizza = null;
-
             ShowingConfigureDialog = false;
         }
 
@@ -32,15 +31,12 @@ namespace BlazingPizza
         {
             Order.Pizzas.Add(ConfiguringPizza);
             ConfiguringPizza = null;
-
             ShowingConfigureDialog = false;
         }
-
         public void RemoveConfiguredPizza(Pizza pizza)
         {
             Order.Pizzas.Remove(pizza);
-        }
-        
+        }     
         public void ResetOrder()
         {
             Order = new Order();
